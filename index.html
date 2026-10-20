@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic AI Acrobat</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#ffffff;--card:#fff;--ink:#2b2a33;--mute:#7a7886;--line:#ece7dc;--gold:#c9a24b;--gold2:#e9d6a3;--gold-d:#8a6a1f;--lav:#eeeafb;--sky:#e6f0fa;--on-gold:#2b2a33;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{position:relative;z-index:1}
+.sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 17px/1.6 Outfit,system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0 0 .5em}
+h1{font-size:clamp(2.2rem,6vw,3.8rem)}h2{font-size:1.8rem}h3{font-size:1.15rem}
+p{margin:0 0 1em}a{color:var(--gold-d)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{display:flex;gap:10px;align-items:center;font-family:Fraunces,serif;font-weight:700;font-size:1.15rem;cursor:pointer;background:none;border:0;color:var(--ink)}
+nav button{background:none;border:0;color:var(--mute);font:inherit;padding:6px 12px;cursor:pointer;border-radius:99px}
+nav button:hover,nav button.on{color:var(--ink);background:var(--gold2)}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.btn{background:var(--gold);color:var(--on-gold);border:0;border-radius:99px;padding:12px 26px;font:600 1rem Outfit,sans-serif;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px var(--gold)}
+.btn.ghost{background:transparent;border:1.5px solid var(--gold);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+.view{display:none}.view.on{display:block}
+.hero{text-align:center;padding:20px 0 40px}
+.hero p.sub{max-width:560px;margin:0 auto 1.5em;color:var(--mute)}
+.tag{font-family:Fraunces,serif;font-style:italic;color:var(--gold-d)}
+.orbit{max-width:560px;margin:0 auto}
+.orbit .ring{transform-origin:300px 150px;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.orbit .ring{animation:none}*{transition:none!important}}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin:30px 0 50px}
+.mode{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px;text-align:left;cursor:pointer;font:inherit;color:inherit;transition:transform .25s,box-shadow .25s,border-color .25s}
+.mode:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 18px 40px -22px var(--gold)}
+.mode .ico{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;margin-bottom:14px}
+.mode b{color:var(--gold-d)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:40px}
+.topic{cursor:pointer;text-align:left;font:inherit;color:inherit}
+.topic:hover,.topic[aria-expanded=true]{border-color:var(--gold)}
+.topic .more{display:none;margin-top:10px;color:var(--mute);font-size:.95rem}
+.topic[aria-expanded=true] .more{display:block}
+.tl{display:flex;gap:0;overflow-x:auto;padding:10px 0 20px;margin-bottom:30px}
+.tl div{flex:0 0 190px;padding:0 14px;border-top:3px solid var(--gold2);position:relative}
+.tl div:before{content:"";position:absolute;top:-8px;left:14px;width:13px;height:13px;border-radius:50%;background:var(--gold)}
+.tl small{color:var(--gold-d);font-weight:600}.tl p{font-size:.9rem;color:var(--mute);margin-top:4px}
+.prompt{background:var(--lav);border-radius:12px;padding:10px 14px;font-size:.92rem;margin-top:10px}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600}
+details p{margin:10px 0 0;color:var(--mute)}
+.page-head{padding:16px 0 24px}.back{margin:20px 0 60px;display:flex;gap:12px;flex-wrap:wrap}
+.quiz{max-width:680px;margin:0 auto 60px}
+.bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;background:var(--gold);transition:width .4s}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:20px 0}
+.opt{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px;font:inherit;color:inherit;cursor:pointer;text-align:left;transition:.2s}
+.opt:hover{border-color:var(--gold)}
+.opt[aria-pressed=true]{border-color:var(--gold);background:var(--gold2)}
+.qa{animation:fade .35s}@keyframes fade{from{opacity:0;transform:translateX(14px)}}
+.nav2{display:flex;justify-content:space-between}
+.chip{display:inline-block;background:var(--gold2);border-radius:99px;padding:2px 12px;font-size:.82rem;margin-right:6px}
+.kc{margin:40px 0}.kc button.a{display:block;width:100%;text-align:left;margin-top:8px;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;font:inherit;color:inherit;cursor:pointer}
+.kc button.right{border-color:#4caf7d;background:rgba(76,175,125,.15)}.kc button.wrong{border-color:#d9776a;background:rgba(217,119,106,.15)}
+footer{text-align:center;color:var(--mute);padding:30px 0 50px;font-size:.9rem}
+</style>
+</head>
+<body>
+<svg class="sky" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+ <defs><path id="st" d="M0-9C1-3 3-1 9 0 3 1 1 3 0 9-1 3-3 1-9 0-3-1-1-3 0-9Z"/></defs>
+ <g fill="#c9a24b">
+  <use href="#st" x="90" y="110" opacity=".55"/><use href="#st" x="900" y="90" opacity=".5"/><use href="#st" x="480" y="40" opacity=".4"/>
+  <use href="#st" x="950" y="430" opacity=".45"/><use href="#st" x="40" y="520" opacity=".4"/><use href="#st" x="760" y="740" opacity=".5"/><use href="#st" x="230" y="730" opacity=".4"/>
+  <circle cx="160" cy="300" r="2" opacity=".4"/><circle cx="840" cy="260" r="2.4" opacity=".35"/><circle cx="600" cy="770" r="2" opacity=".4"/><circle cx="330" cy="60" r="1.8" opacity=".4"/><circle cx="970" cy="640" r="2" opacity=".35"/><circle cx="60" cy="700" r="2.2" opacity=".35"/>
+ </g>
+ <circle cx="930" cy="200" r="22" fill="#eeeafb" stroke="#e9d6a3" stroke-width="1.5"/>
+ <g transform="translate(70 330)"><circle r="14" fill="#e9d6a3" opacity=".7"/><ellipse rx="28" ry="7" fill="none" stroke="#c9a24b" stroke-width="1.5" opacity=".6" transform="rotate(-20)"/></g>
+ <circle cx="880" cy="600" r="12" fill="#e6f0fa" stroke="#e9d6a3" stroke-width="1.5"/>
+ <circle cx="140" cy="640" r="8" fill="#e9d6a3" opacity=".6"/>
+</svg>
+<div class="wrap">
+<header>
+ <button class="logo" onclick="go('home')" aria-label="Agentic AI Acrobat home"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="6" fill="#c9a24b"/><ellipse cx="17" cy="17" rx="15" ry="6" fill="none" stroke="#c9a24b" stroke-width="1.5" transform="rotate(-25 17 17)"/><circle cx="29" cy="11" r="2.2" fill="#e9d6a3"/></svg>Agentic AI Acrobat</button>
+ <nav aria-label="Main"><button data-v="learn" onclick="go('learn')">Learn</button><button data-v="vibe" onclick="go('vibe')">Vibe</button><button data-v="build" onclick="go('build')">Build</button></nav>
+</header>
+
+<main>
+<section id="home" class="view on">
+ <div class="hero">
+  <p class="tag">Learn AI. Find Your Orbit. Build Something Amazing.</p>
+  <h1>Your Journey Into AI Starts Here.</h1>
+  <p class="sub">Learn what AI is, work out how it can help with your own goals, and explore tools that bring your ideas to life.</p>
+ </div>
+ <div class="three">
+  <button class="mode" onclick="go('learn')"><div class="ico" style="background:var(--lav)">📖</div><h3>Learn</h3><p>Understand AI and discover what it can do.</p><b>Start learning</b></button>
+  <button class="mode" onclick="go('vibe')"><div class="ico" style="background:var(--gold2)">✨</div><h3>Vibe</h3><p>Discover your interests and find an idea worth building.</p><b>Take the quiz</b></button>
+  <button class="mode" onclick="go('build')"><div class="ico" style="background:var(--sky)">🚀</div><h3>Build</h3><p>Explore AI tools and start creating.</p><b>Pick a tool</b></button>
+ </div>
+</section>
+
+<section id="learn" class="view">
+ <div class="page-head"><h1>Explore the AI universe</h1><p style="color:var(--mute)">Tap any card to open it. Short, plain answers, with prompts to try.</p></div>
+ <h2>AI fundamentals</h2>
+ <div class="grid" id="fund"></div>
+ <h2>The AI landscape</h2>
+ <p style="color:var(--mute)">Tools fall into a few families. Pick by the job, not the brand.</p>
+ <div class="grid">
+  <div class="card"><h3>Chat assistants</h3><p><b>ChatGPT</b> for general writing, research, analysis and coding. <b>Claude</b> for long documents, careful writing and code. <b>Gemini</b> for AI inside Google's apps.</p></div>
+  <div class="card"><h3>Answer engines</h3><p><b>Perplexity</b> searches the web and cites its sources, so it suits research where you want to check the trail.</p></div>
+  <div class="card"><h3>Coding helpers</h3><p><b>GitHub Copilot</b> suggests code inside your editor. Best when you already write some code.</p></div>
+  <div class="card"><h3>App builders</h3><p><b>Lovable</b> turns a plain-English description into a working app. Best when you want a product without coding.</p></div>
+ </div>
+ <h2>How AI has evolved</h2>
+ <div class="tl" tabindex="0" aria-label="Timeline">
+  <div><small>1950s–80s</small><h3>Rule-based</h3><p>Hand-written if-then rules and expert systems.</p></div>
+  <div><small>1990s–2000s</small><h3>Machine learning</h3><p>Programs learn patterns from data instead of rules.</p></div>
+  <div><small>2010s</small><h3>Deep learning</h3><p>Neural networks master images, speech and translation.</p></div>
+  <div><small>2020–23</small><h3>Generative AI</h3><p>Chatbots write, draw and code on request.</p></div>
+  <div><small>2024 on</small><h3>AI agents</h3><p>Models use tools and take multi-step actions.</p></div>
+  <div><small>Now</small><h3>Autonomous workflows</h3><p>Agents work on longer tasks while you supervise.</p></div>
+ </div>
+ <h2>What can you do with AI?</h2>
+ <div class="grid" id="uses"></div>
+ <div class="kc card"><h3>Quick check</h3><p id="kq"></p><div id="ka"></div><p id="kf" style="color:var(--mute);margin-top:10px"></p></div>
+ <h2>Questions beginners ask</h2>
+ <div id="faq"></div>
+ <h2 style="margin-top:36px">Go deeper</h2>
+ <p><a href="https://www.elementsofai.com/" target="_blank" rel="noopener">Elements of AI</a> (free course) · <a href="https://www.anthropic.com/learn" target="_blank" rel="noopener">Anthropic Learn</a> · <a href="https://www.deeplearning.ai/courses/ai-for-everyone/" target="_blank" rel="noopener">AI for Everyone</a></p>
+ <div class="back"><button class="btn ghost" onclick="go('home')">Back home</button><button class="btn" onclick="go('vibe')">Find your idea in Vibe</button></div>
+</section>
+
+<section id="vibe" class="view">
+ <div class="quiz" id="quiz"></div>
+</section>
+
+<section id="build" class="view">
+ <div class="page-head"><h1>Pick a tool and start building</h1><p style="color:var(--mute)">Match the tool to how much code you want to touch.</p></div>
+ <div class="grid" id="tools"></div>
+ <div class="card" style="margin-bottom:30px"><h3>Your first build, in four steps</h3><p>Describe the goal in one sentence. Ask the AI for a plan. Build the smallest version that works. Improve it one change at a time.</p><div class="prompt">“I want to make [idea] for [who]. Suggest the smallest version I can finish in one hour, and list the steps.”</div></div>
+ <div class="back"><button class="btn ghost" onclick="go('home')">Back home</button><button class="btn" onclick="go('vibe')">Need an idea? Take the quiz</button></div>
+</section>
+</main>
+<footer>Agentic AI Acrobat · Learn AI. Find Your Orbit. Build Something Amazing.</footer>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+function go(v){document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on',e.id===v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));window.scrollTo(0,0);if(v==='vibe'&&!done)render()}
+const fund=[["What is AI?","Software that performs tasks that normally need human judgment, like recognizing speech or recommending a film.","Try: “Explain AI to me like I’m 12.”"],
+["What is an LLM?","A large language model learns patterns from huge amounts of text, then predicts useful words one after another.","Try: “What is a large language model? Give a cooking analogy.”"],
+["What is generative AI?","AI that creates new text, images, audio, video or code instead of only sorting or labelling things.","Try: “Write a short poem about a robot learning to bake.”"],
+["What is an AI agent?","An AI that can take actions toward a goal, such as searching, using apps and checking its own work.","Try: “Plan a weekend trip and list what you would need to look up.”"],
+["What is agentic AI?","Systems built around agents that plan, use tools and carry out multi-step tasks with some independence.","Try: “Break this goal into steps you could do on your own: organize my notes.”"],
+["Using vs building AI","Using AI means working with tools like chatbots. Building AI means training or engineering models. Most people only need the first, or building apps on top of existing models.","Try: “What can I make using AI without training a model?”"]];
+$('#fund').innerHTML=fund.map(f=>`<button class="card topic" aria-expanded="false"><h3>${f[0]}</h3><div class="more"><p>${f[1]}</p><div class="prompt">${f[2]}</div></div></button>`).join('');
+$('#fund').onclick=e=>{const t=e.target.closest('.topic');if(t)t.setAttribute('aria-expanded',t.getAttribute('aria-expanded')!=='true')};
+const uses=[["📚","Study","Quiz you on your notes and explain hard ideas step by step."],["🔬","Research","Summarize papers and compare sources. Verify the claims."],["🗂️","Organize","Plan your week, draft emails, tidy messy lists."],["🎨","Create","Brainstorm stories, logos, music and design ideas."],["💻","Code","Build small apps or get unstuck on errors."],["💼","Business","Test ideas, write pitches, analyze customers."],["🏡","Daily life","Meal plans, trip plans, learning a language."]];
+$('#uses').innerHTML=uses.map(u=>`<div class="card"><div style="font-size:1.6rem">${u[0]}</div><h3>${u[1]}</h3><p style="color:var(--mute);margin:0">${u[2]}</p></div>`).join('');
+const faq=[["Is AI difficult to learn?","No. If you can write a clear message, you can start today. Depth comes with practice."],["Do I need to know how to code?","No. Chat assistants and no-code builders like Lovable work from plain English."],["Is AI always accurate?","No. It can sound confident and be wrong. Check important facts, numbers and citations."],["Is it safe to share information with AI?","Treat chats as not fully private. Avoid passwords, financial details and sensitive personal data, and read each tool’s privacy settings."],["Free vs paid tools?","Free tiers are fine for learning. Paid plans usually add stronger models, higher limits and extra features."],["Can AI complete tasks independently?","Increasingly, for defined tasks with tools. You should still review the result, especially before anything is sent or spent."],["How do I write better prompts?","State the goal, give context, say who it’s for, name the format you want, and ask it to ask you questions if something is unclear."]];
+$('#faq').innerHTML=faq.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('');
+const kq={q:"Which best describes an AI agent?",o:["A chatbot that only answers once","An AI that takes steps and uses tools toward a goal","A search engine"],a:1};
+$('#kq').textContent=kq.q;$('#ka').innerHTML=kq.o.map((o,i)=>`<button class="a" data-i="${i}">${o}</button>`).join('');
+$('#ka').onclick=e=>{const b=e.target.closest('button');if(!b)return;const i=+b.dataset.i;b.classList.add(i===kq.a?'right':'wrong');$('#kf').textContent=i===kq.a?'Correct. Agents act, not just answer.':'Not quite. Try again.'};
+
+const Q=[
+["What are you curious about?","interest",["Creativity","Science","Education","Productivity","Business","Entertainment","Coding","Personal projects"]],
+["What should AI help you do?","goal",["Solve a problem","Learn a skill","Automate a task","Create something","Start a business"]],
+["Your AI experience?","exp",["Brand new","I use chatbots","Comfortable with no-code","I write code"]],
+["How do you want to work?","way",["Chat with AI","Make something visual or written","Automate a workflow","Build an app"]],
+["How much time do you have?","time",["A quick experiment","A weekend","A long-term project"]],
+["Technical comfort?","tech",["No-code tools","Guided coding","Full control"]]];
+const ideas={
+Creativity:["Story world generator","Write a short interactive story with an AI co-author, then illustrate each scene.","Claude or ChatGPT"],
+Science:["Paper explainer","Upload a research paper and get a plain-language summary with questions to test yourself.","Perplexity or Claude"],
+Education:["Personal study coach","A bot that quizzes you on your notes and adapts to what you miss.","Lovable or a chat assistant"],
+Productivity:["Weekly planner assistant","Turn your tasks and calendar into a realistic plan with automatic reminders.","Claude or Gemini"],
+Business:["Idea validator","Describe a business idea and get customer personas, a pitch and a landing page.","Lovable"],
+Entertainment:["Trivia night builder","A game that makes custom trivia for your friend group.","Lovable or Copilot"],
+Coding:["Command-line helper","A small script that automates a boring task you do every week.","GitHub Copilot"],
+"Personal projects":["Life dashboard","One page tracking habits, goals or travel plans in your own style.","Lovable or Claude"]};
+const extra={"Solve a problem":["Problem breakdown buddy","Describe a problem and let AI map causes, options and a next step.","Any chat assistant"],"Learn a skill":["30-day learning plan","Get a daily plan and practice questions for a skill you pick.","Claude or ChatGPT"],"Automate a task":["Inbox sorter","Draft rules or a script that sorts and summarizes repeating messages.","Claude or Copilot"],"Create something":["Mini creative portfolio","Make a small site that showcases your work with AI-written copy.","Lovable"],"Start a business":["Launch page in a day","Name, pitch and landing page for a simple product idea.","Lovable"]};
+let step=0,ans={},done=false;
+function render(){const q=Q[step];$('#quiz').innerHTML=`<div class="page-head"><h1>Find your vibe</h1></div><div class="bar" role="progressbar" aria-valuenow="${step+1}" aria-valuemin="1" aria-valuemax="${Q.length}"><i style="width:${(step+1)/Q.length*100}%"></i></div><small style="color:var(--mute)">Question ${step+1} of ${Q.length}</small><div class="qa" key="${step}"><h2 style="margin-top:14px">${q[0]}</h2><div class="opts">${q[2].map(o=>`<button class="opt" aria-pressed="${ans[q[1]]===o}" data-o="${o}">${o}</button>`).join('')}</div></div><div class="nav2"><button class="btn ghost" id="bk" ${step?'':'disabled'}>Back</button><button class="btn" id="nx" ${ans[q[1]]?'':'disabled'}>${step===Q.length-1?'See my ideas':'Next'}</button></div>`;
+ document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ans[q[1]]=b.dataset.o;render()});
+ $('#bk').onclick=()=>{step--;render()};$('#nx').onclick=()=>{if(step===Q.length-1)result();else{step++;render()}}}
+function result(){done=true;const pool=[ideas[ans.interest],extra[ans.goal]];
+ const way=ans.way==="Build an app"?["App from a sentence","Describe an app in plain English and iterate until it works.","Lovable"]:ans.way==="Automate a workflow"?["Workflow agent","Chain a few steps so AI does a repeating task for you.","Claude or Copilot"]:ans.way==="Chat with AI"?["Daily AI coach","Make a reusable prompt that coaches you through your interest each day.","ChatGPT or Claude"]:["Visual one-pager","Create a visual or written piece from a single prompt, then refine it.","Gemini or Claude"];
+ pool.push(way);
+ const size=ans.time==="A quick experiment"?"about 1 hour":ans.time==="A weekend"?"a weekend":"several weeks";
+ const lvl=ans.tech==="No-code tools"?"No code needed":ans.tech==="Guided coding"?"Light coding with AI help":"You control the code";
+ $('#quiz').innerHTML=`<div class="page-head"><h1>Your three launch ideas</h1><p style="color:var(--mute)">Matched to ${ans.interest.toLowerCase()}, “${ans.goal.toLowerCase()}”, ${ans.exp.toLowerCase()}. Scoped for ${size}.</p></div>${pool.map(p=>`<div class="card" style="margin-bottom:14px"><h3>${p[0]}</h3><p>${p[1]}</p><span class="chip">${p[2]}</span><span class="chip">${lvl}</span></div>`).join('')}<div class="back"><button class="btn ghost" id="rt">Retake quiz</button><button class="btn" onclick="go('build')">Choose a tool</button></div>`;
+ $('#rt').onclick=()=>{step=0;ans={};done=false;render()}}
+const tools=[["Chat assistants","ChatGPT, Claude, Gemini","Plan, draft and think things through. No code.","https://claude.ai"],["Perplexity","Research","Cited answers for investigating your topic.","https://www.perplexity.ai"],["Lovable","No-code app builder","Describe an app and watch it appear.","https://lovable.dev"],["GitHub Copilot","Coding help","Suggestions inside your code editor.","https://github.com/features/copilot"]];
+$('#tools').innerHTML=tools.map(t=>`<div class="card"><h3>${t[0]}</h3><span class="chip">${t[1]}</span><p style="margin:10px 0;color:var(--mute)">${t[2]}</p><a href="${t[3]}" target="_blank" rel="noopener">Open ${t[0]}</a></div>`).join('');
+go('home');
+</script>
+</body>
+</html>
